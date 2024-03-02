@@ -1,10 +1,14 @@
 package com.nokorweb.phoneshop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nokorweb.phoneshop.dto.BrandDTO;
@@ -24,5 +28,15 @@ public class BranchController {
 		Brand brand = Mapper.toEntity(brandDTO);
 		return ResponseEntity.ok(brandService.save(brand));
 		//return ResponseEntity.ok(Mapper.toDto(brandService.save(brand)));
+	}
+	
+	@RequestMapping("{id}")
+	public ResponseEntity<?> getbyId(@PathVariable("id") Integer id){
+		return ResponseEntity.ok(brandService.getById(id));
+	}
+	
+	@PutMapping("{id}")
+	public ResponseEntity<?> updateById(@RequestBody BrandDTO braDto, @PathVariable("id") Integer id){
+		return ResponseEntity.ok(brandService.getUpdateById(id, braDto));
 	}
 }
