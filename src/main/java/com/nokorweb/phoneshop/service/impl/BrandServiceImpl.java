@@ -1,6 +1,7 @@
 package com.nokorweb.phoneshop.service.impl;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,14 @@ import com.nokorweb.phoneshop.service.util.PageUtil;
 import com.nokorweb.phoneshop.spec.BrandFilter;
 import com.nokorweb.phoneshop.spec.BrandSpec;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class BrandServiceImpl implements BrandService{
 
 	@Autowired
-	private BrandRepository brandRepository;
+	private final BrandRepository brandRepository;
 	
 	@Override
 	public Brand save(Brand brand) {
