@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nokorweb.phoneshop.dto.BrandDTO;
+import com.nokorweb.phoneshop.dto.ModelDto;
 import com.nokorweb.phoneshop.dto.PageDto;
 import com.nokorweb.phoneshop.entity.Brand;
+import com.nokorweb.phoneshop.entity.Model;
 import com.nokorweb.phoneshop.mapper.BrandMapper;
-import com.nokorweb.phoneshop.repository.BrandRepository;
+import com.nokorweb.phoneshop.mapper.ModelEntityMapper;
 import com.nokorweb.phoneshop.service.BrandService;
+import com.nokorweb.phoneshop.service.ModelService;
 
 @RestController
 @RequestMapping("brands")
@@ -28,7 +31,11 @@ public class BranchController {
 	
 	@Autowired
 	private BrandService brandService;
-
+	@Autowired
+	private ModelService modelService;
+	@Autowired
+	private ModelEntityMapper modelEntityMapper;
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> create(@RequestBody BrandDTO brandDTO){
 		//Brand brand = Mapper.toEntity(brandDTO);
@@ -89,5 +96,12 @@ public class BranchController {
 		Page<Brand> brandsPage = brandService.getBrandsByPage(param);
 		PageDto pageDto = new PageDto(brandsPage);
 		return ResponseEntity.ok(pageDto);
+	}
+	
+	@RequestMapping("{id}/model")
+	public ResponseEntity<?> getModelByBrand(@PathVariable Integer id){
+		List<Model> models = modelService.getByBrand(id);
+		List<ModelDto> modelDtos = models.stream().map(model -> modelEntityMapper.toModelDto(model)).collect(Collectors.toList());
+		return ResponseEntity.ok(modelDtos);
 	}
 }

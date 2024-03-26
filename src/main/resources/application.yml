@@ -9,6 +9,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: create
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher    
 
 #http://localhost:8080/h2-console
 #spring:

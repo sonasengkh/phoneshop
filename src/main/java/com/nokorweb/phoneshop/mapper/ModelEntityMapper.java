@@ -9,9 +9,9 @@ import com.nokorweb.phoneshop.entity.Model;
 import com.nokorweb.phoneshop.service.BrandService;
 
 @Mapper(componentModel = "spring",uses = {BrandService.class} )
-public interface ModelMapper {
+public interface ModelEntityMapper {
 
-	ModelMapper INSTANCE = Mappers.getMapper(ModelMapper.class);
+	ModelEntityMapper INSTANCE = Mappers.getMapper(ModelEntityMapper.class);
 	
 	@Mapping(target = "brand", source = "brandId")
 	Model toModel(ModelDto modelDto);
